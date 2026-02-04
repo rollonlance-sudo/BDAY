@@ -61,22 +61,30 @@ const LoveLetter: React.FC = () => {
         className={`relative w-full max-w-lg cursor-pointer transition-all duration-700 transform ${isOpen ? 'scale-105' : 'hover:scale-102'}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="bg-[#FFF9F2] p-8 md:p-12 shadow-2xl border border-orange-100 rounded-lg relative overflow-hidden min-h-[400px] flex flex-col items-center justify-center text-center">
+        <div className="bg-[#FFF9F2] p-8 md:p-12 shadow-2xl border border-orange-100 rounded-lg relative overflow-hidden min-h-[500px] flex flex-col items-center justify-center text-center">
           {!isOpen ? (
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center shadow-lg mb-4 text-white">
+              <div className="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center shadow-lg mb-4 text-white hover:animate-pulse">
                 ❤️
               </div>
-              <h3 className="font-header text-2xl text-orange-900 mb-2">A Private Note for You</h3>
-              <p className="text-gray-400 font-cursive text-lg">Click to open the seal</p>
+              <h3 className="font-header text-2xl text-orange-900 mb-2">A Private Note for Your 24th</h3>
+              <p className="text-gray-400 font-cursive text-lg">Click to open the seal, baby</p>
             </div>
           ) : (
-            <div className="animate-in fade-in zoom-in duration-500">
-              <h3 className="font-cursive text-4xl text-pink-600 mb-6 italic">My Dearest...</h3>
-              <p className="text-gray-700 leading-relaxed font-serif text-lg mb-6">
-                On this day, the stars aligned to bring your brilliance into the world. Being with you is like watching a constellation come to life—mysterious, beautiful, and completely unique. You are my favorite Aquarius trait: pure magic.
-              </p>
-              <p className="font-cursive text-3xl text-purple-500">I love you, forever & always.</p>
+            <div className="animate-in fade-in zoom-in duration-500 text-left w-full">
+              <h3 className="font-cursive text-4xl text-pink-600 mb-6 italic">Hi baby...</h3>
+              <div className="text-gray-700 leading-relaxed font-serif text-lg space-y-4">
+                <p>
+                  Happy 24th Birthday! I hope you really enjoy your special day today with your family. I'm wishing you so many more birthdays to come, but most of all, I wish for your continuous good health.
+                </p>
+                <p>
+                  I know how much you've been working towards your goals, and I truly hope you achieve that dream physique you've been wanting—to finally wear all those "bet" outfits you've been eyeing! I hope you reach that point where you're not feeling bloated anymore so you can just be happy and confident every day. 
+                </p>
+                <p>
+                  I know you'll achieve those "Barbie arms" soon! Just remember that I'm here to support you in every goal you have, no matter how big or small. You're already perfect to me, but I'll always be your #1 cheerleader.
+                </p>
+                <p className="font-cursive text-3xl text-purple-500 pt-4 text-center">I love you so much! Happy Birthday!</p>
+              </div>
             </div>
           )}
           <div className="absolute bottom-4 right-4 opacity-10">
@@ -297,20 +305,21 @@ const App: React.FC = () => {
       {/* Favorites */}
       <section className="py-24 bg-pink-50/50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="font-header text-4xl text-center text-purple-800 mb-16">The Things You Love</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <h2 className="font-header text-4xl text-center text-purple-800 mb-16 italic underline decoration-pink-300">The Things You Love</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {[
-              { name: 'Classic Poetry', icon: '📖' },
-              { name: 'Pink Lilies', icon: '🌸' },
+              { name: 'Books & Manga', icon: '📚' },
+              { name: 'Video Games', icon: '🎮' },
               { name: 'Pretty Stationery', icon: '✉️' },
-              { name: 'Moonlight Walks', icon: '🌙' },
-              { name: 'Lavender Candles', icon: '🕯️' },
-              { name: 'Slow Piano', icon: '🎹' },
-              { name: 'Long Letters', icon: '🖋️' },
-              { name: 'Sweet Berries', icon: '🍓' }
+              { name: 'Handwritten Letters', icon: '🖋️' },
+              { name: 'The Moon', icon: '🌙' },
+              { name: 'Good Food', icon: '🍰' },
+              { name: 'Elegant Watches', icon: '⌚' },
+              { name: 'Starry Nights', icon: '🌌' },
+              { name: 'Late Night Talks', icon: '💬' }
             ].map((fav) => (
-              <div key={fav.name} className="bg-white p-8 rounded-[2rem] text-center shadow-sm border border-pink-100 transition-all hover:-translate-y-2 hover:shadow-md">
-                <div className="text-4xl mb-4">{fav.icon}</div>
+              <div key={fav.name} className="bg-white p-8 rounded-[2rem] text-center shadow-sm border border-pink-100 transition-all hover:-translate-y-2 hover:shadow-md group">
+                <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">{fav.icon}</div>
                 <div className="font-header text-purple-700">{fav.name}</div>
               </div>
             ))}
