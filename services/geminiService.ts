@@ -1,10 +1,29 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { Horoscope } from "../types";
+import { Horoscope } from "../types.ts";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+// Safe access to API Key
+const getApiKey = () => {
+    try {
+        return process.env.API_KEY || "";
+    } catch (e) {
+        return "";
+    }
+};
+
+const apiKey = getApiKey();
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const fetchHoroscope = async (): Promise<Horoscope> => {
+  if (!ai) {
+    return {
+      prediction: "The stars align to celebrate the girl who is my entire world. Expect endless love and creative clarity today.",
+      luckyNumber: "2",
+      luckyColor: "Blush Pink",
+      mood: "Infinite Love"
+    };
+  }
+
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -37,6 +56,8 @@ export const fetchHoroscope = async (): Promise<Horoscope> => {
 };
 
 export const generateSmartQuote = async (topic: string): Promise<string> => {
+  if (!ai) return "Your intelligence is the most beautiful thing I've ever seen.";
+
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
