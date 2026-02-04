@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Icons, COLORS } from './constants';
 import { Wish, GalleryItem, Horoscope } from './types';
-import { fetchHoroscope, generateSmartQuote } from './services/geminiService';
+import { fetchHoroscope, generateGalleryQuotes } from './services/geminiService';
 
 const HeroSection: React.FC = () => {
   const [letters, setLetters] = useState<Array<{ id: number; char: string; left: string; delay: string }>>([]);
@@ -143,19 +143,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const initData = async () => {
+      // Fetch horoscope first
       const h = await fetchHoroscope();
       setHoroscope(h);
 
+      // Batch fetch quotes to prevent 429 errors
       const topics = ['romance', 'intellect', 'stars', 'love', 'flowers', 'destiny'];
-      const items: GalleryItem[] = [];
-      for (let i = 0; i < 6; i++) {
-        const quote = await generateSmartQuote(topics[i]);
-        items.push({
-          id: i.toString(),
-          url: `https://picsum.photos/seed/aquarius-love-${i}/600/800`,
-          quote
-        });
-      }
+      const quotes = await generateGalleryQuotes(topics);
+      
+      const items: GalleryItem[] = topics.map((topic, i) => ({
+        id: i.toString(),
+        url: `https://picsum.photos/seed/aquarius-love-${i}/600/800`,
+        quote: quotes[i] || "You are breathtakingly brilliant."
+      }));
       setGallery(items);
 
       setWishes([
@@ -314,9 +314,9 @@ const App: React.FC = () => {
               { name: 'Handwritten Letters', icon: '🖋️' },
               { name: 'The Moon', icon: '🌙' },
               { name: 'Good Food', icon: '🍰' },
-              { name: 'Elegant Watches', icon: '⌚' },
+              { name: 'Spoiling Loved Ones', icon: '🎁' },
               { name: 'Starry Nights', icon: '🌌' },
-              { name: 'Late Night Talks', icon: '💬' }
+              { name: 'Warm Hugs', icon: '🫂' }
             ].map((fav) => (
               <div key={fav.name} className="bg-white p-8 rounded-[2rem] text-center shadow-sm border border-pink-100 transition-all hover:-translate-y-2 hover:shadow-md group">
                 <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">{fav.icon}</div>
